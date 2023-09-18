@@ -11,12 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+
     @Transactional
     public Usuario salvar(Usuario usuario){
+
         return usuarioRepository.save(usuario);
     }
-
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    @Transactional(readOnly = true)
+    public Usuario buscarPorId(Long id){
+        return usuarioRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Usuario não encontrado.")
+        );
     }
+
 }
