@@ -20,7 +20,7 @@ public class UsuarioMapper {
         PropertyMap<Usuario, UsuarioReponseDto> props = new PropertyMap<Usuario, UsuarioReponseDto>() {
             @Override
             protected void configure() {
-
+            map().setRole(role);
             }
         };
        ModelMapper mapper = new ModelMapper();

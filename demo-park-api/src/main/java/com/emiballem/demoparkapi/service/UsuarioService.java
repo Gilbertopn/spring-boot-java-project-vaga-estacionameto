@@ -41,6 +41,7 @@ public class UsuarioService {
     }
 
     public List<Usuario> buscarTodos() {
+
         return usuarioRepository.findAll();
     }
 }
