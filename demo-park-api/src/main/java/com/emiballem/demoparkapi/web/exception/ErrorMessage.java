@@ -1,5 +1,6 @@
 package com.emiballem.demoparkapi.web.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,22 +10,23 @@ import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Getter
 @ToString
 public class ErrorMessage {
+
     private String path;
     private String method;
     private int status;
     private String statusText;
     private String message;
-    private Map<String, String> erros;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Map<String, String> errors;
 
-    public ErrorMessage(){
-
+    public ErrorMessage() {
     }
 
-
-    public ErrorMessage(HttpServletRequest request, HttpStatus status, String message){
+    public ErrorMessage(HttpServletRequest request, HttpStatus status, String message) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -32,7 +34,7 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public ErrorMessage(HttpServletRequest request, HttpStatus status, String message, BindingResult result){
+    public ErrorMessage(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -42,9 +44,10 @@ public class ErrorMessage {
     }
 
     private void addErrors(BindingResult result) {
-        this.erros = new HashMap<>();
-        for (FieldError fieldError : result.getFieldErrors()){
-            this.erros.put(fieldError.getField(), fieldError.getDefaultMessage());
+        this.errors = new HashMap<>();
+        for (FieldError fieldError : result.getFieldErrors()) {
+            this.errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
     }
+
 }

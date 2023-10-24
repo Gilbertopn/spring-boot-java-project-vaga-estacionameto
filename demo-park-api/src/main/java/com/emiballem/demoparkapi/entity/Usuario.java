@@ -11,10 +11,10 @@ import java.util.Objects;
 
 @Getter @Setter @NoArgsConstructor
 @Entity
-@Table(name = "usuarios")
-public class Usuario implements Serializable  {
+@Table(name = "tb_usuarios")
+public class Usuario implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "username", nullable = false, unique = true, length = 100)
@@ -24,6 +24,7 @@ public class Usuario implements Serializable  {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 25)
     private Role role = Role.ROLE_CLIENTE;
+
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
     @Column(name = "data_modificacao")
@@ -33,8 +34,7 @@ public class Usuario implements Serializable  {
     @Column(name = "modificado_por")
     private String modificadoPor;
 
-
-    public enum Role{
+    public enum Role {
         ROLE_ADMIN, ROLE_CLIENTE
     }
 
