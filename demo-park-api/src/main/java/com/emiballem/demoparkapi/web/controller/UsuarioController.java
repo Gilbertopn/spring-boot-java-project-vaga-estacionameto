@@ -47,7 +47,7 @@ public class UsuarioController {
     @Operation(summary = "Recuperar um usuário pelo id", description = "Recuperar um usuário pelo id",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioReponseDto.class))),
                     @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
             })
@@ -76,7 +76,7 @@ public class UsuarioController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Lista com todos os usuários cadastrados",
                             content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = UsuarioResponseDto.class))))
+                                    array = @ArraySchema(schema = @Schema(implementation = UsuarioReponseDto.class))))
             })
     @GetMapping
     public ResponseEntity<List<UsuarioReponseDto>> getAll() {

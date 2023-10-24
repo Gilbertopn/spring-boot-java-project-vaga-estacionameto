@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Getter @Setter @NoArgsConstructor
 @Entity
-@Table(name = "tb_usuarios")
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
