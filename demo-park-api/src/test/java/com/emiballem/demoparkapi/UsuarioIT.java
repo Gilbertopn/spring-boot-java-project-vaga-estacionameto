@@ -357,7 +357,7 @@ public class UsuarioIT {
         org.assertj.core.api.Assertions.assertThat(responseBody.size()).isEqualTo(3);
     }
 
-    
+
     @Test
     public void listarUsuarios_ComUsuarioSemPermissao_RetornarErrorMessageComStatus403() {
         ErrorMessage responseBody = testClient
