@@ -3,6 +3,7 @@ package com.emiballem.demoparkapi.web.controller;
 import com.emiballem.demoparkapi.jwt.JwtToken;
 import com.emiballem.demoparkapi.jwt.JwtUserDetailsService;
 import com.emiballem.demoparkapi.web.dto.UsuarioLoginDto;
+import com.emiballem.demoparkapi.web.dto.UsuarioResponseDto;
 import com.emiballem.demoparkapi.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
