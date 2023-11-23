@@ -2,6 +2,7 @@ package com.emiballem.demoparkapi.service;
 
 import com.emiballem.demoparkapi.entity.Cliente;
 import com.emiballem.demoparkapi.exception.CpfUniqueViolationException;
+import com.emiballem.demoparkapi.exception.EntityNotFoundException;
 import com.emiballem.demoparkapi.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,6 +24,13 @@ public class ClienteService {
                     String.format("CPF '%s' não pode ser cadastrado, já existe no sistema", cliente.getCpf())
             );
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Cliente id=%s não encontrado no sistema", id))
+        );
     }
 
 }
