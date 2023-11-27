@@ -13,6 +13,7 @@ import com.emiballem.demoparkapi.web.dto.mapper.PageableMapper;
 import com.emiballem.demoparkapi.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -81,6 +82,32 @@ public class ClienteController {
         return ResponseEntity.ok(ClienteMapper.toDto(cliente));
     }
 
+    @Operation(summary = "Recuperar lista de clientes",
+            description = "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN' ",
+            security = @SecurityRequirement(name = "security"),
+            parameters = {
+                    @Parameter(in = QUERY, name = "page",
+                            content = @Content(schema = @Schema(type = "integer", defaultValue = "0")),
+                            description = "Representa a página retornada"
+                    ),
+                    @Parameter(in = QUERY, name = "size",
+                            content = @Content(schema = @Schema(type = "integer", defaultValue = "5")),
+                            description = "Representa o total de elementos por página"
+                    ),
+                    @Parameter(in = QUERY, name = "sort", hidden = true,
+                            array = @ArraySchema(schema = @Schema(type = "string", defaultValue = "nome,asc")),
+                            description = "Representa a ordenação dos resultados. Aceita multiplos critérios de ordenação são suportados.")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ClienteResponseDto.class))
+                    ),
+                    @ApiResponse(responseCode = "403", description = "Recurso não permito ao perfil de CLIENTE",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            })
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PageableDto> getAll(@Parameter(hidden = true)
