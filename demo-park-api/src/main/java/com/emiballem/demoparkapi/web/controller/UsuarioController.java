@@ -1,7 +1,10 @@
 package com.emiballem.demoparkapi.web.controller;
 
+import com.emiballem.demoparkapi.entity.Cliente;
 import com.emiballem.demoparkapi.entity.Usuario;
+import com.emiballem.demoparkapi.jwt.JwtUserDetails;
 import com.emiballem.demoparkapi.service.UsuarioService;
+import com.emiballem.demoparkapi.web.dto.ClienteResponseDto;
 import com.emiballem.demoparkapi.web.dto.UsuarioCreateDto;
 import com.emiballem.demoparkapi.web.dto.UsuarioResponseDto;
 import com.emiballem.demoparkapi.web.dto.UsuarioSenhaDto;
@@ -19,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -97,4 +101,5 @@ public class UsuarioController {
         List<Usuario> users = usuarioService.buscarTodos();
         return ResponseEntity.ok(UsuarioMapper.toListDto(users));
     }
+
 }
