@@ -65,5 +65,11 @@ public class EstacionamentoController {
         return ResponseEntity.created(location).body(responseDto);
     }
 
-
+    @GetMapping("/check-in/{recibo}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
+    public ResponseEntity<EstacionamentoResponseDto> getByRecibo(@PathVariable String recibo) {
+        ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
+        EstacionamentoResponseDto dto = ClienteVagaMapper.toDto(clienteVaga);
+        return ResponseEntity.ok(dto);
+    }
 }
