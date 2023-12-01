@@ -3,6 +3,7 @@ package com.emiballem.demoparkapi.service;
 import com.emiballem.demoparkapi.entity.ClienteVaga;
 import com.emiballem.demoparkapi.exception.EntityNotFoundException;
 import com.emiballem.demoparkapi.repository.ClienteVagaRepository;
+import com.emiballem.demoparkapi.repository.projection.ClienteVagaProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,5 +34,10 @@ public class ClienteVagaService {
     @Transactional(readOnly = true)
     public long getTotalDeVezesEstacionamentoCompleto(String cpf) {
         return repository.countByClienteCpfAndDataSaidaIsNotNull(cpf);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ClienteVagaProjection> buscarTodosPorClienteCpf(String cpf, Pageable pageable) {
+        return repository.findAllByClienteCpf(cpf, pageable);
     }
 }
